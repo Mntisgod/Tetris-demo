@@ -19,7 +19,15 @@ public class GameController : MonoBehaviour {
     public float fallTime = 0.8f;
     private float N = 20;
     public Vector3 startPos = new Vector3();
-    private readonly Vector3[] Pivots = new[] { new Vector3(-0.33f, 0f, 0f), new Vector3(-0.27f, -0.15f, 0f), new Vector3(-0.27f, 0.1f, 0f), new Vector3(-0.12f, -0.1f, 0f), new Vector3(-0.22f, -0.1f, 0f), new Vector3(-0.02f, -0.1f, 0f), new Vector3(-0.2f, 0.1f, 0f) };
+    private readonly Vector3[] Pivots = new[] {
+        new Vector3(-0.33f, 0f, 0f),
+        new Vector3(-0.27f, -0.15f, 0f), 
+        new Vector3(-0.27f, 0.1f, 0f), 
+        new Vector3(-0.12f, -0.1f, 0f),
+        new Vector3(-0.22f, -0.1f, 0f), 
+        new Vector3(-0.02f, -0.1f, 0f), 
+        new Vector3(-0.2f, 0.1f, 0f), 
+        new Vector3(-0.2f, -0.1f, 0f) };
 
     private float previousTime, previousToLeft, previousToRight;
     private int score = 0;
@@ -137,6 +145,7 @@ public class GameController : MonoBehaviour {
     }
 
     void Update() {
+        // Pause時にPキーを押すと再開
         if (isPaused && Input.GetKeyDown(KeyCode.P)) Resume();
         else if (!isEndTurn && !gameOver && !gameClear && !isPaused && !isShowingAnimation) {
             if (Input.GetKey(KeyCode.LeftArrow) && Time.time - previousToLeft > 0.1f) {
@@ -265,6 +274,7 @@ public class GameController : MonoBehaviour {
         FindObjectOfType<AudioManager>().Play("Blip");
         hardDropped = true;
         foreach (var y in deletingRow) {
+            
             StartCoroutine(DeleteLine(y));
             StartCoroutine(WaitForRowDown(y));
         }
