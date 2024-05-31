@@ -248,12 +248,20 @@ public class GameController : MonoBehaviour {
     private void CheckForLines() {
         isShowingAnimation = true;
         deletingRow.Clear();
+        var n = 0; // 消去列のcounter
 
         for (int y = Helper.HEIGHT - 1; y >= 0; y--) {
             if (HasLine(y)) {
+                n++;
                 deletingRow.Add(y);
             }
         }
+
+        if (n == 4)
+        {
+            
+        }
+        
         score += scores[deletingRow.Count] * Mathf.RoundToInt((linesDeleted / N) + 1);
         linesDeleted += deletingRow.Count;
         if (deletingRow != null) {
